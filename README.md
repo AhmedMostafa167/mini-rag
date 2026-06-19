@@ -23,6 +23,7 @@ Set up an isolated environment for your project using uv.
 Inside your project folder, Run:
 
 ```bash
+uv init
 uv venv
 ```
 
