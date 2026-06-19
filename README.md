@@ -43,3 +43,9 @@ Windows PowerShell:
 ```bash
 .venv\Scripts\Activate.ps1
 ```
+
+### install dependencies
+
+```bash
+uv pip install .
+```
