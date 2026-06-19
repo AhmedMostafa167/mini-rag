@@ -49,3 +49,10 @@ Windows PowerShell:
 ```bash
 uv pip install .
 ```
+
+### setup environment variables
+
+```bash
+cp .env.example .env
+```
+and then set your environment variables like API keys
