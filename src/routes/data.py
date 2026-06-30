@@ -16,18 +16,18 @@ async def upload_data(project_id: str,
                       file: UploadFile,
                       app_settings: Settings = Depends(get_settings)):
 
-    controller = DataController()
+    data_controller = DataController()
     
-    is_valid, result_message = controller.validate_file(file)
+    is_valid, result_message = data_controller.validate_file(file)
     if not is_valid:
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST, 
             content={"message": result_message}
             )   
-
+ 
     project_dir = ProjectController().get_project_path(project_id=project_id)
-    
-    async with aiofiles.open(os.path.join(project_dir, file.filename), mode="wb") as f:
+    file_path = data_controller.generate_unique_filename(file.filename, project_id=project_id)
+    async with aiofiles.open(file_path, mode="wb") as f:
         while chunk:= await file.read(app_settings.FILE_DEFUALT_CHUNK_SIZE):
             await f.write(chunk)
     
