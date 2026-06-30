@@ -1,6 +1,6 @@
 from .BaseController import BaseController
 from fastapi import UploadFile
-
+from models import ResponseEnums   
 class DataController(BaseController):
     def __init__(self):
         super().__init__()
@@ -8,9 +8,9 @@ class DataController(BaseController):
         
     def validate_file(self, file: UploadFile):
         if file.content_type not in self.app_settings.FILE_ALLOWED_TYPES:
-            return False
+            return False, ResponseEnums.FILE_TYPE_NOT_SUPPORTED.value
 
         if file.size > self.app_settings.FILE_ALLOWED_SIZE*self.SIZE_SCALE:
-            return False
+            return False, ResponseEnums.FILE_SIZE_EXCEEDED.value
         
-        return True
+        return True, ResponseEnums.FILE_VALIDATION_SUCESS.value
